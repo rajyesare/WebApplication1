@@ -24,3 +24,20 @@ steps:
       $(project)
       $(solution)
     arguments: '--configuration $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  name: "publish"
+  displayName: "dot net publish"
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '--configuration $(buildConfiguration) --output  $(BuildArtifactStagingDirectory)'
+    zipAfterPublish: false
+
+- task: PublishBuildArtifacts@1
+  name: "PublishBuildArtifacts"
+  displayName: "Publish Build Artifacts"
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drophere'
+    publishLocation: 'Container'
