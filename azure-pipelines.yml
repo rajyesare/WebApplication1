@@ -20,6 +20,8 @@ steps:
   displayName: "Build the sln"
   inputs:
     command: 'build'
-    projects: '$(solution)'
+    projects: |
+      $(project)
+      $(solution)
     arguments: '--configuration $(buildConfiguration)'
 
